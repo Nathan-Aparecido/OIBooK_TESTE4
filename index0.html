@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - OIBook</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-image: url('https://images.unsplash.com/photo-1529655683826-aba9b3e77383');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+            position: relative;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 0;
+        }
+
+        .login-container {
+            position: relative;
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8);
+            width: 400px;
+            backdrop-filter: blur(10px);
+            z-index: 1;
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .login-container h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 1.1em;
+            color: #f0f0f0;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+            color: white;
+            font-size: 1em;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-color: #A67B5B;
+        }
+
+        .form-group input::placeholder {
+            color: #ddd;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #A67B5B;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s;
+        }
+
+        .login-btn:hover {
+            background-color: #8F6B4D;
+            transform: translateY(-2px);
+        }
+
+        .links {
+            margin-top: 15px;
+        }
+
+        .links a {
+            color: #A67B5B;
+            text-decoration: none;
+            margin: 0 10px;
+            font-style: italic;
+            transition: color 0.3s ease, transform 0.2s;
+        }
+
+        .links a:hover {
+            color: #D4A373;
+            transform: scale(1.05);
+        }
+
+        .notification {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+            font-size: 1em;
+        }
+
+        .success {
+            background-color: rgba(0, 255, 0, 0.1);
+            color: #005500;
+        }
+
+        .error {
+            background-color: rgba(255, 0, 0, 0.1);
+            color: #550000;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .login-container {
+                width: 90%;
+                padding: 30px;
+            }
+            .login-container h2 {
+                font-size: 2em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 0 10px;
+            }
+            .login-container {
+                width: 100%;
+                padding: 20px;
+            }
+            .login-container h2 {
+                font-size: 1.8em;
+            }
+            .form-group input, .login-btn {
+                font-size: 1em;
+                padding: 10px;
+            }
+            .links a {
+                margin: 0 5px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
+    <script>
+        function saveLogin(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const notification = document.getElementById('notification');
+
+            const existingUser = localStorage.getItem(email);
+
+            if (existingUser) {
+                const userData = JSON.parse(existingUser);
+                if (userData.email === email && userData.password === password) {
+                    notification.className = 'notification success';
+                    notification.textContent = 'Login realizado com sucesso!';
+                    notification.style.display = 'block';
+
+                    localStorage.setItem('loggedIn', 'true');
+
+                    setTimeout(() => {
+                        window.location.href = "index1.html";
+                    }, 2000);
+                } else {
+                    notification.className = 'notification error';
+                    notification.textContent = 'E-mail ou senha incorretos.';
+                    notification.style.display = 'block';
+                }
+            } else {
+                notification.className = 'notification error';
+                notification.textContent = 'Nenhum usuário encontrado. Por favor, crie uma nova conta.';
+                notification.style.display = 'block';
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="overlay"></div>
+
+    <div class="login-container">
+        <h2>Login - OIBook</h2>
+        <form onsubmit="saveLogin(event)">
+            <div class="form-group">
+                <label for="email">E-mail:</label>
+                <input type="email" id="email" name="email" placeholder="Digite seu e-mail" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Senha:</label>
+                <input type="password" id="password" name="password" placeholder="Digite sua senha" required>
+            </div>
+            <button type="submit" class="login-btn">Entrar</button>
+            <div class="links">
+                <a href="#">Esqueceu a senha?</a>
+                <a href="#">Criar nova conta</a>
+            </div>
+        </form>
+        <div id="notification" class="notification"></div>
+    </div>
+</body>
+</html>

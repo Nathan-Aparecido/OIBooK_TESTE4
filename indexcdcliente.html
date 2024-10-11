@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OIBooK - Cadastro para Download de Livro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos Gerais */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background: url('FUNDO-02.jpeg') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            justify-content: center;
+        }
+
+        /* Formulário de Cadastro */
+        .form-container {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(44, 62, 80, 0.95));
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+            transition: transform 0.3s;
+        }
+
+        .form-container:hover {
+            transform: translateY(-5px);
+        }
+
+        .form-container h2 {
+            margin-bottom: 1rem;
+            color: #2c3e50;
+            font-weight: 700;
+        }
+
+        .form-container input {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border: 1px solid #bdc3c7;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border 0.3s, box-shadow 0.3s;
+        }
+
+        .form-container input:focus {
+            border: 1px solid #e74c3c;
+            box-shadow: 0 0 5px rgba(231, 76, 60, 0.5);
+            outline: none;
+        }
+
+        .form-container button {
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s ease;
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+        }
+
+        .form-container button:hover {
+            background: linear-gradient(135deg, #c0392b, #e74c3c);
+            transform: scale(1.05);
+        }
+
+        /* Rodapé */
+        footer {
+            background-color: rgba(27, 31, 47, 0.9);
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Formulário de Cadastro -->
+    <div class="form-container">
+        <h2>Cadastro para Baixar Livro</h2>
+        <input type="text" id="name" placeholder="Seu Nome" required>
+        <input type="email" id="email" placeholder="Seu Gmail" required>
+        <input type="tel" id="phone" placeholder="Seu Celular" required>
+        <button onclick="downloadBook()">Baixar Livro</button>
+    </div>
+
+    <!-- Rodapé -->
+    <footer>
+        <p>&copy; 2024 OIBooK - Todos os Direitos Reservados</p>
+    </footer>
+
+    <script>
+        function downloadBook() {
+            // Obtém os valores do formulário
+            var name = document.getElementById("name").value.trim();
+            var email = document.getElementById("email").value.trim();
+            var phone = document.getElementById("phone").value.trim();
+
+            // Verifica se todos os campos estão preenchidos
+            if (!name || !email || !phone) {
+                alert("Por favor, preencha todos os campos obrigatórios para iniciar o download.");
+                return;
+            }
+
+            // Simula um download
+            setTimeout(function () {
+                // Link do livro a ser baixado (substitua pelo seu arquivo real)
+                var link = document.createElement('a');
+                link.href = 'https://drive.google.com/file/d/1EctMkZ0hAnhVo5OaoBdsR6srQZ8qX3cI/view?usp=sharing'; // Altere para o seu arquivo
+                link.download = 'livro_exemplo.pdf'; // Nome do arquivo ao ser baixado
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                alert("Download iniciado com sucesso!"); // Mensagem de sucesso
+            }, 2000); // Tempo de espera antes do download (2 segundos)
+        }
+    </script>
+
+</body>
+</html>

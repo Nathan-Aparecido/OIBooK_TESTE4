@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OIBooK - Venda de Livros</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <style>
+        /* Estilos gerais */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f2027, #2c5364, #203a43);
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Cabeçalho */
+        header {
+            background-color: transparent;
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        header.scrolled {
+            background-color: rgba(27, 31, 47, 0.9);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .oibook {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.1)), url('https://example.com/book-banner.jpg') no-repeat center center/cover;
+            text-align: center;
+            color: white;
+            padding: 0 2rem;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            letter-spacing: 0.1rem;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero button {
+            padding: 1rem 2rem;
+            background-color: #e74c3c;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+
+        .hero button:hover {
+            background-color: #c0392b;
+            transform: scale(1.1);
+        }
+
+        /* Seções de Destaque */
+        .section {
+            padding: 4rem 2rem;
+            background-color: #2c3e50;
+            color: white;
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section .product-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+        }
+
+        .section .product-card {
+            background-color: #34495e;
+            padding: 1.5rem;
+            border-radius: 10px;
+            width: calc(25% - 2rem);
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .section .product-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .section .product-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: contain;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .section .product-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .section .product-card p {
+            color: #bdc3c7;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .section .product-card a {
+            display: inline-block;
+        }
+
+        .section .product-card button {
+            padding: 0.75rem 1.5rem;
+            background-color: #e74c3c;
+            border: none;
+            color: white;
+            font-size: 1rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+
+        .section .product-card button:hover {
+            background-color: #c0392b;
+            transform: scale(1.05);
+        }
+
+        /* Rodapé */
+        footer {
+            background-color: #1b1f2f;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            margin-top: 2rem;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        footer .social-icons a {
+            color: white;
+            margin: 0 1rem;
+            font-size: 1.5rem;
+        }
+
+        footer .social-icons a:hover {
+            color: #e74c3c;
+        }
+
+        /* Estilos responsivos */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .hero button {
+                font-size: 1rem;
+                padding: 0.8rem 1.5rem;
+            }
+
+            .section h2 {
+                font-size: 2rem;
+            }
+
+            .section .product-card {
+                width: calc(50% - 2rem);
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 1rem;
+                text-align: center;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .hero button {
+                font-size: 0.9rem;
+                padding: 0.6rem 1.2rem;
+            }
+
+            .section h2 {
+                font-size: 1.8rem;
+            }
+
+            .section .product-card {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <header>
+        <span class="oibook">OIBOOK</span>
+    </header>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <div>
+            <h1>Descubra o Melhor da Literatura</h1>
+            <p>PEGUE UM LIVRO DE GRAÇA, PARA MELHOR DESEMPENHO.</p>
+            <a href="index3.html">
+                <button>PEGUAR</button>
+            </a>
+        </div>
+    </div>
+
+    <!-- Seção de Destaque -->
+    <section class="section">
+        <h2>Destaques da Semana</h2>
+        <div class="product-grid">
+            <div class="product-card">
+                <img src="mentalidade invencivel .jpg" alt="Produto 1">
+                <h3>MENTALIDADE INVENCIVEL</h3>
+                <p>DESENVOLVA SUA RESILIENCIA E CONQUISTE SEUS DESAFIOS</p>
+                <a href="index2.html">
+                    <button>COMPRAR</button>
+                </a>
+            </div>
+            <div class="product-card">
+                <img src="O SEGREDO DA AUTOCONFIANCA.jpg" alt="Produto 2">
+                <h3>O SEGREDO DA AUTOCONFIANÇA</h3>
+                <p>DESBLOQUEIE SEU POTENCIAL!</p>
+                <a href="index4.html">
+                    <button>COMPRAR</button>
+                </a>
+            </div>
+            <div class="product-card">
+                <img src="PENSAMENTO POSITIVO EM AÇOES.jpg" alt="Produto 3">
+                <h3>PENSAMENTO POSITIVO</h3>
+                <p>TRANSFORME SUA VIDA COM PENSAMENTOS POSITIVOS</p>
+                <a href="index5.html">
+                    <button>COMPRAR</button>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer>
+        <p>&copy; 2023 Livraria TECLOG. Todos os direitos reservados.</p>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+    </footer>
+</body>
+</html>
